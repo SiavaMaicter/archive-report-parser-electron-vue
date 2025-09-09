@@ -1,14 +1,21 @@
 {
-  "name": "",
+  "name": "gas_otchet",
   "version": "",
   "private": true,
   "scripts": {
+    "app": "electron app/app.js",
+    "app:dev": "npm run build && npm run app -- --dev-mode",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "@vue/cli": "^5.0.9",
+    "bootstrap": "^5.3.8",
+    "dotenv": "^17.2.2",
+    "electron": "^38.0.0",
+    "electron-json-storage": "^4.6.0",
+    "lodash": "^4.17.21",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
