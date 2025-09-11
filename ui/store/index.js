@@ -1,14 +1,9 @@
 import { createStore } from 'vuex'
-
+import heatbases from "./heatbases"
+import settings from "./settings"
 export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
+    heatbases,
+    settings
   }
 })
