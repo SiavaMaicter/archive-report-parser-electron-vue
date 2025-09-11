@@ -55,9 +55,11 @@ export const heatbase_store = {
         })
         return storage.get('heatbases')
     },
-    editHeatbase: async (heatbase, key) => {
+    editHeatbase: async (object) => {
         let current_list = await storage.get('heatbases');
-        current_list[key] = heatbase;
+        console.log(object)
+        console.log(current_list)
+        current_list[object.key] = object.heatbase;
         await storage.set("heatbases", current_list, (err) => {
             if (err) return err;
         })

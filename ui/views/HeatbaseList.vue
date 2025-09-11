@@ -11,7 +11,7 @@
         </thead>
         <tbody>
           <template v-for="(heatbase, key) in heatbases" :key="key">
-            <tr class="" @click="chooseHeatbase(heatbase)">
+            <tr class="" @click="chooseHeatbase(heatbase, key)">
               <td scope="row">{{ key }}</td>
               <td>{{ heatbase.name }}</td>
               <td>
@@ -24,53 +24,33 @@
       <div>
         <div class="mb-3">
           <label for="heatbase_textbox" class="form-label">Название</label>
-          <input
-            type="text"
-            id="heatbase_textbox"
-            v-model="heatbase_name"
-            class="form-control"
-          />
+          <input type="text" id="heatbase_textbox" v-model="heatbase_name" class="form-control" />
           <div id="heatbase_textbox" class="form-text">
             Введите название котельной
           </div>
         </div>
         <div class="mb-3">
-          <label for="serial_num_textbox" class="form-label"
-            >Серийный номер</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            v-model="heatbase_serial_num"
-            id="serial_num_textbox"
-          />
+          <label for="serial_num_textbox" class="form-label">Серийный номер</label>
+          <input type="text" class="form-control" v-model="heatbase_serial_num" id="serial_num_textbox" />
         </div>
-        <button
-          class="btn btn-primary"
-          @click="
-            !selectedHeatbase
-              ? $store.dispatch('addHeatbase', {
-                  name: heatbase_name,
-                  serial_num: heatbase_serial_num,
-                })
-              : cancelSelection()
-          "
-        >
+        <button class="btn btn-primary" @click="
+          !selectedHeatbase
+            ? $store.dispatch('addHeatbase', {
+              name: heatbase_name,
+              serial_num: heatbase_serial_num,
+            })
+            : cancelSelection()
+          ">
           {{ !selectedHeatbase ? "Добавить" : "Отменить" }}
         </button>
-        <button
-          class="btn btn-primary"
-          :class="!selectedHeatbase ? 'disabled' : ''"
-          @click="editHeatbase()"
-        >
+        <button class="btn btn-primary" :class="!selectedHeatbase ? 'disabled' : ''" @click="editHeatbase()">
           Редактировать
         </button>
-        <button
-          class="btn btn-primary"
-          :class="!selectedHeatbase ? 'disabled' : ''"
-          @click="deleteHeatbase()"
-        >
+        <button class="btn btn-primary" :class="!selectedHeatbase ? 'disabled' : ''" @click="deleteHeatbase()">
           Удалить из списка
+        </button>
+        <button class="btn btn-danger" @click="$store.dispatch('RestoreHeatbases')">
+          RESTORE DEFAULT
         </button>
       </div>
     </div>
@@ -83,6 +63,7 @@ export default {
       selectedHeatbase: null,
       heatbase_name: null,
       heatbase_serial_num: null,
+      selectedKey: null,
     };
   },
   methods: {
@@ -90,9 +71,11 @@ export default {
       this.selectedHeatbase = null;
       this.heatbase_name = null;
       this.heatbase_serial_num = null;
+      this.selectedKey = null;
     },
-    chooseHeatbase(heatbase) {
+    chooseHeatbase(heatbase, key) {
       this.selectedHeatbase = heatbase;
+      this.selectedKey = key;
       this.heatbase_name = heatbase.name;
       this.heatbase_serial_num = heatbase.serial_num;
     },
@@ -104,7 +87,13 @@ export default {
       this.cancelSelection();
     },
     async editHeatbase() {
-      await this.$store.dispatch("editHeatbase", {});
+      await this.$store.dispatch("editHeatbase", {
+        heatbase: {
+          name: this.heatbase_name,
+          serial_num: this.heatbase_serial_num,
+        },
+        key: this.selectedKey
+      });
       this.cancelSelection;
     },
   },
