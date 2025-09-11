@@ -1,48 +1,66 @@
-import storage from "electron-json-storage"
-import path from 'path';
-const __dirname = path.resolve();
-storage.setDataPath(`${__dirname}/../data/storage`);
-const default_heatbases = {
-    0: {
-        name: "Котельная №14",
-        serial_num: ""
-    },
-    1: {
-        name: "Котельная №17",
-        serial_num: ""
-    },
-    2: {
-        name: "Котельная №18",
-        serial_num: ""
-    },
-    3: {
-        name: "Котельная №16",
-        serial_num: ""
-    },
-    4: {
-        name: "Котельная №13",
-        serial_num: ""
-    },
-    5: {
-        name: "Котельная №12",
-        serial_num: ""
-    },
-    6: {
-        name: "Котельная №9",
-        serial_num: ""
-    },
-}
+import Store from "electron-store"
+const storage = new Store();
+const default_heatbases = [{
+    name: "Котельная №14",
+    serial_num: ""
+},
+{
+    name: "Котельная №17",
+    serial_num: ""
+},
+{
+    name: "Котельная №18",
+    serial_num: ""
+},
+{
+    name: "Котельная №16",
+    serial_num: ""
+},
+{
+    name: "Котельная №13",
+    serial_num: ""
+},
+{
+    name: "Котельная №12",
+    serial_num: ""
+},
+{
+    name: "Котельная №9",
+    serial_num: ""
+}];
 
 export const heatbase_store = {
     restoreDefaultHeatbases: async () => {
-        await storage.set("heatbases", default_heatbases, (err) => {
+        await storage.set("heatbases", default_heatbases);
+        return storage.get("heatbases")
+    },
+    getHeatbaseList: async () => {
+        return storage.get('heatbases')
+    },
+    addHeatbase: async (heatbase) => {
+        let current_list = await storage.get('heatbases')
+        current_list.push(heatbase);
+        await storage.set("heatbases", current_list, (err) => {
             if (err) return err;
         })
-        await storage.get('heatbases', (err, data) => {
-            if (err) return err;
-            console.log(data);
-            return data;
+        return storage.get('heatbases')
+    },
+    deleteHeatbase: async (heatbase) => {
+        let current_list = await storage.get('heatbases');
+        current_list = current_list.filter((obj) => {
+            if (obj.name != heatbase.name || obj.serial_num != heatbase.serial_num) { return obj } else { return }
         })
+        await storage.set("heatbases", current_list, (err) => {
+            if (err) return err;
+        })
+        return storage.get('heatbases')
+    },
+    editHeatbase: async (heatbase, key) => {
+        let current_list = await storage.get('heatbases');
+        current_list[key] = heatbase;
+        await storage.set("heatbases", current_list, (err) => {
+            if (err) return err;
+        })
+        return storage.get('heatbases')
     }
 }
-// export default heatbase_store;

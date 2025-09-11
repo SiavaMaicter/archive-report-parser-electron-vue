@@ -1,7 +1,7 @@
 const appEvents = require("./app-events")
 const storageEvents = require("./storage-events");
-const init = () => {
+const init = (options) => {
     appEvents()
-    storageEvents()
+    storageEvents(options)
 }
 module.exports = { init }

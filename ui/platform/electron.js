@@ -8,30 +8,34 @@ module.exports = () => ({
         store: {
             heatbases: {
                 async restoreDefaultsHeatbases() {
-                    return await ipcRenderer.send('restore-defaults-heatbases')
+                    return await ipcRenderer.invoke('restore-defaults-heatbases')
                 },
                 async getAllHeatbases() {
-                    return await ipcRenderer.send('get-heatbase-list')
+                    return await ipcRenderer.invoke('get-heatbase-list')
                 },
                 async updateHeatbase(heatbase) {
-                    return await ipcRenderer.send('update-heatbase', heatbase)
+                    return await ipcRenderer.invoke('update-heatbase', heatbase)
                 },
                 async addHeatbase(heatbase) {
-                    return await ipcRenderer.send('add-heatbase', heatbase);
+                    return await ipcRenderer.invoke('add-heatbase', heatbase);
                 },
                 async deleteHeatbase(heatbase) {
-                    return await ipcRenderer.send('delete-heatbase', heatbase)
+                    let data = await ipcRenderer.invoke('delete-heatbase', heatbase)
+                    return data
+                },
+                async editHeatbase(heatbase) {
+                    return await ipcRenderer.invoke('edit-heatbase', heatbase)
                 }
             },
             settings: {
-                async restoreDefaults() {
-                    await ipcRenderer.send('restore-default-settings');
+                restoreDefaults() {
+                    return ipcRenderer.invoke('restore-default-settings');
                 },
                 async getCurrentSettings() {
-                    return await ipcRenderer.send('get-current-settings')
+                    return await ipcRenderer.invoke('get-current-settings')
                 },
                 async updateSettings(settings) {
-                    return await ipcRenderer.send('update-settings', settings)
+                    return await ipcRenderer.invoke('update-settings', settings)
                 }
             }
         }

@@ -1,7 +1,7 @@
-import storage from "electron-json-storage"
+import Store from "electron-store"
 import path from 'path';
 const __dirname = path.resolve();
-storage.setDataPath(`${__dirname}/../data/storage`);
+const storage = new Store();
 const default_settings = {
     width: 800,
     height: 600,
@@ -15,6 +15,6 @@ export const settings_store = {
         await storage.set("settings", default_settings, (err) => {
             if (err) throw err;
         })
+        return await storage.get("settings")
     },
 }
-// export default settings_store;

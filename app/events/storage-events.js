@@ -1,15 +1,23 @@
 const { ipcMain, app } = require('electron')
 const { electron_store } = require('../storage/index.js')
-// import { restoreDefault } from "../storage/index.js"
 
 module.exports = () => {
-    ipcMain.on('restore-default-settings', () => {
-        electron_store.settings_store.restoreDefaultSettings()
+    ipcMain.handle('restore-default-settings', async () => {
+        return await electron_store.settings_store.restoreDefaultSettings()
     });
-    ipcMain.on('restore-defaults-heatbases', () => {
-        electron_store.heatbase_store.restoreDefaultHeatbases(), (err, data) => {
-            if (err) return err;
-            return data;
-        }
+    ipcMain.handle('restore-defaults-heatbases', async () => {
+        return await electron_store.heatbase_store.restoreDefaultHeatbases()
+    });
+    ipcMain.handle('get-heatbase-list', async () => {
+        return await electron_store.heatbase_store.getHeatbaseList()
+    });
+    ipcMain.handle('delete-heatbase', async (event, heatbase) => {
+        return await electron_store.heatbase_store.deleteHeatbase(heatbase);
+    });
+    ipcMain.handle("add-heatbase", async (event, heatbase) => {
+        return await electron_store.heatbase_store.addHeatbase(heatbase);
+    })
+    ipcMain.handle("edit-heatbase", async (event, heatbase) => {
+        return await electron_store.heatbase_store.editHeatbase(heatbase);
     })
 }
