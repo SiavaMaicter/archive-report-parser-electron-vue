@@ -20,8 +20,7 @@ module.exports = () => ({
                     return await ipcRenderer.invoke('add-heatbase', heatbase);
                 },
                 async deleteHeatbase(heatbase) {
-                    let data = await ipcRenderer.invoke('delete-heatbase', heatbase)
-                    return data
+                    return await ipcRenderer.invoke('delete-heatbase', heatbase)
                 },
                 async editHeatbase(heatbase) {
                     return await ipcRenderer.invoke('edit-heatbase', heatbase)
@@ -37,6 +36,11 @@ module.exports = () => ({
                 async updateSettings(settings) {
                     return await ipcRenderer.invoke('update-settings', settings)
                 }
+            }
+        },
+        report: {
+            async createDefaultReport() {
+                return await ipcRenderer.invoke("create-default-report");
             }
         }
     }

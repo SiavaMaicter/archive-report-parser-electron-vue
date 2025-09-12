@@ -16,6 +16,7 @@
     "electron": "^38.0.0",
     "electron-json-storage": "^4.6.0",
     "electron-store": "^10.1.0",
+    "exceljs": "^4.4.0",
     "lodash": "^4.17.21",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",

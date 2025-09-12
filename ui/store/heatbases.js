@@ -1,10 +1,12 @@
 import { app } from "../platform";
 
 const state = {
-    heatbases: null
+    heatbases: null,
+    report: null
 }
 const getters = {
-    heatbases: (state) => state.heatbases
+    heatbases: (state) => state.heatbases,
+    report: (state) => state.report
 }
 const mutations = {
 
@@ -29,6 +31,10 @@ const actions = {
     async editHeatbase({ commit, dispatch, state }, heatbase) {
         state.heatbases = await app.store.heatbases.editHeatbase(heatbase);
         console.log(state.heatbases)
+    },
+    async createReport({ commit, dispatch, state }) {
+        state.report = await app.report.createDefaultReport();
+        console.log(state.report);
     }
 }
 
