@@ -1,6 +1,4 @@
 import Store from "electron-store"
-import path from 'path';
-const __dirname = path.resolve();
 const storage = new Store();
 const default_settings = {
     width: 800,
