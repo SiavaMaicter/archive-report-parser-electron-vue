@@ -35,12 +35,15 @@ module.exports = () => ({
                 },
                 async updateSettings(settings) {
                     return await ipcRenderer.invoke('update-settings', settings)
+                },
+                async changeWindowSize(size) {
+                    return await ipcRenderer.send('change-window-size', size);
                 }
             }
         },
         report: {
-            async createDefaultReport() {
-                return await ipcRenderer.invoke("create-default-report");
+            async createDefaultReport(heatbase) {
+                return await ipcRenderer.invoke("parse-default-report", heatbase);
             }
         }
     }

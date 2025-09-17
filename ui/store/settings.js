@@ -10,8 +10,11 @@ const mutations = {
 }
 const actions = {
     async RestoreSettings({ commit, dispatch, state }) {
-        state.heatbases = await app.store.settings.restoreDefaults();
+        // state.heatbases = await app.store.settings.restoreDefaults();
     },
+    async changeWindowSize({ commit, dispatch, state }, size) {
+        await app.store.settings.changeWindowSize(size);
+    }
 }
 
 export default {

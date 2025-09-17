@@ -1,7 +1,7 @@
 require('dotenv').config()
 const { app, BrowserWindow } = require('electron/main')
 const { init: initEvents } = require("./events")
-
+const path = require('path')
 const isDevMode = app.commandLine.hasSwitch('dev-mode');
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -10,6 +10,7 @@ const createWindow = () => {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
+            preload: path.join(__dirname, 'preload.js')
         },
     })
     win.setIcon(`${__dirname}/../ui/assets/logo.png`);

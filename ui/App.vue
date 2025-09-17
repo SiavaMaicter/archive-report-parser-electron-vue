@@ -50,6 +50,9 @@ export default {
       this.sidebar_state = !this.sidebar_state;
     },
   },
+  mounted() {
+    this.$store.dispatch("RestoreHeatbases");
+  },
 };
 </script>
 <style lang="scss">

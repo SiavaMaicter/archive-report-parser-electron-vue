@@ -1,24 +1,53 @@
 <template>
   <div>
     <div class="btn-group">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="triggerId"
+        data-bs-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
         {{ selectedHeatbase ? selectedHeatbase.name : "Выберете котельную" }}
       </button>
 
-      <div class="dropdown-menu dropdown-menu-start" aria-labelledby="triggerId">
+      <div
+        class="dropdown-menu dropdown-menu-start"
+        aria-labelledby="triggerId"
+      >
         <template v-for="(heatbase, key) in heatbases" :key="key">
-          <a class="dropdown-item" href="#" @click="selectedHeatbase = heatbase">{{ heatbase.name }}</a>
+          <a
+            class="dropdown-item"
+            href="#"
+            @click="selectedHeatbase = heatbase"
+            >{{ heatbase.name }}</a
+          >
         </template>
       </div>
       <div class="btn-group" role="group" data-bs-toggle="buttons">
         <label class="btn btn-primary active">
-          <input type="checkbox" class="me-2" autocomplete="off" v-model="chouse_file" />
+          <input
+            type="checkbox"
+            class="me-2"
+            autocomplete="off"
+            v-model="chouse_file"
+          />
           Выбрать файл
         </label>
       </div>
       <div>
-        <button class="btn btn-primary" @click="$store.dispatch('createReport')">
+        <button
+          class="btn btn-primary"
+          @click="
+            !selectedHeatbase
+              ? alert('Выберете котельную')
+              : $store.dispatch('createReport', {
+                  name: selectedHeatbase.name,
+                  serial_num: selectedHeatbase.serial_num,
+                })
+          "
+        >
           Сформировать отчет
         </button>
       </div>
@@ -28,12 +57,16 @@
         <table class="table table-primary">
           <thead>
             <tr>
-              <th scope="col" v-for="(value, key) in report[0]" :key="key">{{ key }}</th>
+              <th scope="col" v-for="(value, key) in report[0]" :key="key">
+                {{ key }}
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr class="" v-for="(row, key) in report" :key="key">
-              <td scope="row" v-for="(value, key) in row">{{ value }}</td>
+              <td scope="row" v-for="(value, key) in row" :key="key">
+                {{ value }}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -67,7 +100,7 @@ export default {
     },
     report() {
       return this.$store.getters.report;
-    }
+    },
   },
 };
 </script>

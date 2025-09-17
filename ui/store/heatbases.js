@@ -32,8 +32,8 @@ const actions = {
         state.heatbases = await app.store.heatbases.editHeatbase(heatbase);
         console.log(state.heatbases)
     },
-    async createReport({ commit, dispatch, state }) {
-        state.report = await app.report.createDefaultReport();
+    async createReport({ commit, dispatch, state }, heatbase) {
+        state.report = await app.report.createDefaultReport(heatbase);
         console.log(state.report);
     }
 }

@@ -2,9 +2,9 @@ const { ipcMain, app } = require('electron')
 const { electron_store } = require('../storage/index.js')
 
 module.exports = () => {
-    ipcMain.handle('restore-default-settings', async () => {
-        return await electron_store.settings_store.restoreDefaultSettings()
-    });
+    // ipcMain.handle('restore-default-settings', async () => {
+    //     return await electron_store.settings_store.restoreDefaultSettings()
+    // });
     ipcMain.handle('restore-defaults-heatbases', async () => {
         return await electron_store.heatbase_store.restoreDefaultHeatbases()
     });
