@@ -28,7 +28,7 @@ module.exports = () => ({
             },
             settings: {
                 restoreDefaults() {
-                    return ipcRenderer.invoke('restore-default-settings');
+                    return ipcRenderer.send('restore-default-settings');
                 },
                 async getCurrentSettings() {
                     return await ipcRenderer.invoke('get-current-settings')

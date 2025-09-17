@@ -10,14 +10,14 @@ module.exports = () => {
             window.setSize(settings.width, settings.height);
         }
         // return settings;
-    }),
-        ipcMain.on("restore-default-settings", async (event) => {
-            let settings = await electron_store.settings_store.restoreDefaultSettings();
-            const window = BrowserWindow.fromWebContents(event.sender);
-            if (!window) {
-                throw new Error("Отсутствуют данные о текущем окне, попробуйте снова, либо обратитесь к администратору")
-            } else {
-                window.setSize(settings.width, settings.height);
-            }
-        })
+    })
+    ipcMain.on("restore-default-settings", async (event) => {
+        let settings = await electron_store.settings_store.restoreDefaultSettings();
+        const window = BrowserWindow.fromWebContents(event.sender);
+        if (!window) {
+            throw new Error("Отсутствуют данные о текущем окне, попробуйте снова, либо обратитесь к администратору")
+        } else {
+            window.setSize(settings.width, settings.height);
+        }
+    })
 }

@@ -11,6 +11,12 @@
   >
     CHANGE SIZE
   </div>
+  <div
+    @click="$store.dispatch('restoreDefaultSettings')"
+    class="btn btn-primary"
+  >
+    RESTORE DEFAULTS
+  </div>
 </template>
 <script>
 export default {};
