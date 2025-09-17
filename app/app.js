@@ -1,16 +1,16 @@
 require('dotenv').config()
 const { app, BrowserWindow } = require('electron/main')
 const { init: initEvents } = require("./events")
-const path = require('path')
+const { settings_store } = require("./storage/settings")
 const isDevMode = app.commandLine.hasSwitch('dev-mode');
-const createWindow = () => {
+const createWindow = async () => {
+    const settings = await settings_store.getSettings();
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: settings.width,
+        height: settings.height,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            preload: path.join(__dirname, 'preload.js')
         },
     })
     win.setIcon(`${__dirname}/../ui/assets/logo.png`);

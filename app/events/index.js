@@ -8,4 +8,7 @@ const init = (options) => {
     reportEvents(options)
     settingsEvents(options)
 }
+// const collableIvents = () => {
+
+// }
 module.exports = { init }
