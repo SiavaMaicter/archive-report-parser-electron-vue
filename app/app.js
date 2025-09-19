@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { app, BrowserWindow } = require('electron/main')
+const { app, BrowserWindow, session } = require('electron/main')
 const { init: initEvents } = require("./events")
 const { settings_store } = require("./storage/settings")
 const isDevMode = app.commandLine.hasSwitch('dev-mode');
@@ -22,7 +22,8 @@ const createWindow = async () => {
 
 app.whenReady().then(() => {
     createWindow()
-
+    app.whenReady().then(async () => {
+    })
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow()

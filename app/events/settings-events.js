@@ -18,14 +18,17 @@ module.exports = () => {
         } else {
             window.setSize(settings.width, settings.height);
         }
+    });
+    ipcMain.handle("get-current-settings", async () => {
+        return await electron_store.settings_store.getSettings();
     })
-    ipcMain.on("init-stored-settings", async (event) => {
-        let settings = await electron_store.settings_store.getSettings();
-        const window = BrowserWindow.fromWebContents(event.sender);
-        if (!window) {
-            throw new Error("Отсутствуют данные о текущем окне, попробуйте снова, либо обратитесь к администратору")
-        } else {
-            window.setSize(settings.width, settings.height);
-        }
-    })
+    // ipcMain.on("init-stored-settings", async (event) => {
+    //     let settings = await electron_store.settings_store.getSettings();
+    //     const window = BrowserWindow.fromWebContents(event.sender);
+    //     if (!window) {
+    //         throw new Error("Отсутствуют данные о текущем окне, попробуйте снова, либо обратитесь к администратору")
+    //     } else {
+    //         window.setSize(settings.width, settings.height);
+    //     }
+    // })
 }

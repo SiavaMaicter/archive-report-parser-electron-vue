@@ -3,6 +3,8 @@ const storage = new Store();
 const default_settings = {
     width: 800,
     height: 600,
+    get_file_location: "C:\\Users\\kot_6\\Documents",
+    save_file_location: "C:\\Users\\kot_6\\Documents"
 };
 export const settings_store = {
     restoreDefaultSettings: async () => {

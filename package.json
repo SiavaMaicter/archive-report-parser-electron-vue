@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@vue/cli": "^5.0.9",
+    "@vue/devtools": "^8.0.2",
     "bootstrap": "^5.3.8",
     "dotenv": "^17.2.2",
     "electron": "^38.0.0",

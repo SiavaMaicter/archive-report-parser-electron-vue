@@ -52,6 +52,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("RestoreHeatbases");
+    this.$store.dispatch("restoreDefaultSettings");
   },
 };
 </script>

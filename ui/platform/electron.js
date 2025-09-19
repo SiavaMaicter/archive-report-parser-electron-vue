@@ -38,6 +38,9 @@ module.exports = () => ({
                 },
                 async changeWindowSize(size) {
                     return await ipcRenderer.send('change-window-size', size);
+                },
+                async changeCurrentLocation(current_location) {
+                    return await ipcRenderer.invoke("change-current-location", current_location);
                 }
             }
         },
