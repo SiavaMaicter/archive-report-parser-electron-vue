@@ -122,7 +122,6 @@ export default {
         "changeCurrentLocation",
         this.get_file_location
       );
-      console.log(location);
       if (!location) {
         return;
       }
@@ -133,7 +132,6 @@ export default {
         "changeCurrentLocation",
         this.save_file_location
       );
-      console.log(location);
       if (!location) {
         return;
       }

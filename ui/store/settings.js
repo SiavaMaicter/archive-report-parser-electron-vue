@@ -17,12 +17,9 @@ const actions = {
     },
     async getCurrentSettings({ commit, dispatch, state }) {
         state.settings = await app.store.settings.getCurrentSettings();
-        console.log(state.settings)
     },
     async changeCurrentLocation({ commit, dispatch, state }, current_location) {
-        const data = await app.store.settings.changeCurrentLocation(current_location);
-        console.log(data);
-        return data
+        return await app.store.settings.changeCurrentLocation(current_location);
     }
 }
 
