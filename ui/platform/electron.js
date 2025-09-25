@@ -28,19 +28,31 @@ module.exports = () => ({
             },
             settings: {
                 restoreDefaults() {
-                    return ipcRenderer.invoke('restore-default-settings');
+                    return ipcRenderer.send('restore-default-settings');
                 },
                 async getCurrentSettings() {
                     return await ipcRenderer.invoke('get-current-settings')
                 },
                 async updateSettings(settings) {
                     return await ipcRenderer.invoke('update-settings', settings)
+                },
+                async changeWindowSize(size) {
+                    return await ipcRenderer.send('change-window-size', size);
+                },
+                async changeCurrentLocation(current_location) {
+                    return await ipcRenderer.invoke("change-current-location", current_location);
+                },
+                async updateSettings(settings) {
+                    return await ipcRenderer.send("update-settings", settings)
+                },
+                async applySettings() {
+                    await ipcRenderer.send("apply-settings");
                 }
             }
         },
         report: {
-            async createDefaultReport() {
-                return await ipcRenderer.invoke("create-default-report");
+            async createDefaultReport(heatbase) {
+                return await ipcRenderer.invoke("parse-default-report", heatbase);
             }
         }
     }

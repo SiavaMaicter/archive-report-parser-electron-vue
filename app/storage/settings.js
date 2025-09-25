@@ -1,12 +1,15 @@
 import Store from "electron-store"
+import os from "os"
+import path from 'path'
 const storage = new Store();
+const default_path = path.join(os.homedir(), 'Documents');
 const default_settings = {
     width: 800,
     height: 600,
-    webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false,
-    }
+    get_file_location: default_path,
+    save_file_location: default_path,
+    request_get_file_location: false,
+    request_save_file_location: false
 };
 export const settings_store = {
     restoreDefaultSettings: async () => {
@@ -15,4 +18,20 @@ export const settings_store = {
         })
         return await storage.get("settings")
     },
+    changeWindowSize: async (window_size) => {
+        let settings = await storage.get("settings")
+        settings.width = window_size.width;
+        settings.height = window_size.height;
+        await storage.set("settings", settings, (err) => {
+            if (err) throw err;
+        })
+        return await storage.get("settings")
+    },
+    getSettings: async () => {
+        return await storage.get("settings")
+    },
+    updateSettings: async (settings) => {
+        await storage.set('settings', settings)
+        return await storage.get("settings")
+    }
 }

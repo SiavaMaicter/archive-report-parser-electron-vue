@@ -1,12 +1,13 @@
 require('dotenv').config()
-const { app, BrowserWindow } = require('electron/main')
+const { app, BrowserWindow, session } = require('electron/main')
 const { init: initEvents } = require("./events")
-
+const { settings_store } = require("./storage/settings")
 const isDevMode = app.commandLine.hasSwitch('dev-mode');
-const createWindow = () => {
+const createWindow = async () => {
+    const settings = await settings_store.getSettings();
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: settings.width,
+        height: settings.height,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -21,7 +22,8 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
     createWindow()
-
+    app.whenReady().then(async () => {
+    })
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow()
