@@ -4,11 +4,7 @@
       <aside class="sidebar" :class="sidebar_state == true ? 'expand' : ''">
         <div class="d-flex">
           <ul class="sidebar-nav">
-            <li
-              class="sidebar-toggle sidebar-item"
-              type="button"
-              @click="toggleSidebar()"
-            >
+            <li class="sidebar-toggle sidebar-item" type="button" @click="toggleSidebar()">
               <img src="../public/gasIcon.svg" class="sidebar-icon" />
             </li>
             <li class="sidebar-item">
@@ -52,7 +48,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("RestoreHeatbases");
-    this.$store.dispatch("restoreDefaultSettings");
+    // this.$store.dispatch("restoreDefaultSettings");
   },
 };
 </script>
@@ -63,6 +59,7 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 a {
   text-decoration: none;
 }
@@ -79,19 +76,23 @@ h1 {
 body {
   font-family: "Poppins", sans-serif;
 }
+
 .wrapper {
   display: flex;
 }
+
 .sidebar-icon {
   max-height: 40px;
   max-width: 40px;
 }
+
 .main {
   min-height: 100vh;
   width: 100%;
   overflow: hidden;
   transition: all 0.35ms ease-in-out;
 }
+
 .sidebar {
   width: 70px;
   min-width: 70px;
@@ -101,47 +102,58 @@ body {
   flex-direction: column;
   background-color: #faebd7;
 }
+
 .sidebar.expand {
   width: 260px;
   min-width: 260px;
 }
+
 .sidebar-text {
   text-decoration: none;
   color: currentColor;
   cursor: default;
+
   :hover {
     cursor: pointer;
     background-color: rgb(204, 174, 134);
   }
+
   // pointer-events: none;
 }
+
 .sidebar-toggle {
   max-width: 40px;
   max-height: 40px;
   cursor: pointer;
   border-radius: 10%;
+
   img {
     object-fit: cover;
     width: 100%;
     height: 100%;
   }
 }
+
 .sidebar-toggle:hover {
   background-color: rgb(204, 174, 134);
 }
+
 .sidebar-logo {
   margin: auto 0;
 }
+
 .sidebar-logo a {
   color: #fff;
   font-size: 1.15rem;
   font-weight: 600;
 }
+
 .sidebar:not(.expand) .sidebar-item {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
 }
+
 // .sidebar:not(.expand) .sidebar-toggle {
 //   margin-left: auto;
 //   margin-right: auto;
@@ -150,10 +162,12 @@ body {
 .sidebar:not(.expand) .sidebar-item span {
   display: none;
 }
+
 .sidebar-nav {
   padding: 2rem 0;
   flex: 1 1 auto;
 }
+
 a.sidebar-link {
   padding: 0.625rem 1.625rem;
   color: #fff;
@@ -162,6 +176,7 @@ a.sidebar-link {
   white-space: nowrap;
   border-left: 3px solid transparent;
 }
+
 .sidebar-item {
   display: flex;
   flex-direction: row;

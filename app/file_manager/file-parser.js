@@ -45,7 +45,7 @@ export const file_parser = {
         sheet.mergeCells('A4', 'B4');
         sheet.mergeCells('A5', 'B5');
         sheet.mergeCells('E4', 'F4');
-        sheet.getCell('A3').value = `Объект`;
+        sheet.getCell('A3').value = `Объект`; 
         sheet.getCell('A4').value = `Корректор`;
         sheet.getCell('A5').value = `Газовое хозяйство`;
         sheet.getCell('C3').value = heatbase.name;
