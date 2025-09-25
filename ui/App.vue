@@ -46,10 +46,6 @@ export default {
       this.sidebar_state = !this.sidebar_state;
     },
   },
-  mounted() {
-    this.$store.dispatch("RestoreHeatbases");
-    // this.$store.dispatch("restoreDefaultSettings");
-  },
 };
 </script>
 <style lang="scss">
