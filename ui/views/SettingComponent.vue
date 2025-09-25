@@ -13,24 +13,24 @@
         aria-expanded="false"
       >
         {{
-          update_settings.screenExt
-            ? `${update_settings.screenExt.width}x${update_settings.screenExt.height}`
+          screenExt.width
+            ? `${screenExt.width}x${screenExt.height}`
             : "Выберете разрешение"
         }}
       </button>
       <div class="dropdown-menu" aria-labelledby="triggerId">
         <button
           class="dropdown-item"
-          v-for="(screenExt, key) in screenExtPreset"
+          v-for="(ext, key) in screenExtPreset"
           :key="key"
           @click="
-            update_settings.screenExt = {
-              width: screenExt.width,
-              height: screenExt.height,
+            screenExt = {
+              width: ext.width,
+              height: ext.height,
             }
           "
         >
-          {{ `${screenExt.width}x${screenExt.height}` }}
+          {{ `${ext.width}x${ext.height}` }}
         </button>
       </div>
       <div class="form">
@@ -57,8 +57,8 @@
           class="form-check-input"
           type="checkbox"
           name="wincor_directory_checkbox"
-          value="checkedValue"
           aria-label="Text for screen reader"
+          v-model="request_get_file_location"
         />
         <label for="wincor_directory_checkbox"
           >Спрашивать дирректорию с нахождением файла Wincor</label
@@ -80,6 +80,13 @@
         >
           Выбрать
         </button>
+        <input
+          class="form-check-input"
+          type="checkbox"
+          name="report_directory_checkbox"
+          aria-label="Text for screen reader"
+          v-model="request_save_file_location"
+        />
         <label for="report_directory_checkbox"
           >Спрашивать дирректорию для сохранения файла отчета</label
         >
@@ -100,9 +107,7 @@
 export default {
   data() {
     return {
-      update_settings: {
-        screenExt: null,
-      },
+      screenExt: {},
       screenExtPreset: {
         _4x3: { width: 800, height: 600 },
         _16x9: { width: 1024, height: 768 },
@@ -110,12 +115,21 @@ export default {
         Full_HD: { width: 1920, height: 1080 },
       },
       get_file_location: null,
+      request_get_file_location: null,
       save_file_location: null,
+      request_save_file_location: null,
     };
   },
   methods: {
     saveChanges() {
-      console.log(this.update_settings);
+      this.$store.dispatch("updateSettings", {
+        width: this.screenExt.width,
+        height: this.screenExt.height,
+        get_file_location: this.get_file_location,
+        request_get_file_location: this.request_get_file_location,
+        save_file_location: this.save_file_location,
+        request_save_file_location: this.request_save_file_location,
+      });
     },
     async change_get_file_location() {
       const location = await this.$store.dispatch(
@@ -140,8 +154,12 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch("getCurrentSettings");
+    this.screenExt.width = this.settings.width;
+    this.screenExt.height = this.settings.height;
     this.get_file_location = this.settings.get_file_location;
+    this.request_get_file_location = this.settings.request_get_file_location;
     this.save_file_location = this.settings.save_file_location;
+    this.request_save_file_location = this.settings.request_save_file_location;
   },
   computed: {
     settings() {

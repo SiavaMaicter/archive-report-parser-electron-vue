@@ -41,6 +41,12 @@ module.exports = () => ({
                 },
                 async changeCurrentLocation(current_location) {
                     return await ipcRenderer.invoke("change-current-location", current_location);
+                },
+                async updateSettings(settings) {
+                    return await ipcRenderer.send("update-settings", settings)
+                },
+                async applySettings() {
+                    await ipcRenderer.send("apply-settings");
                 }
             }
         },

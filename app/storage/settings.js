@@ -1,10 +1,15 @@
 import Store from "electron-store"
+import os from "os"
+import path from 'path'
 const storage = new Store();
+const default_path = path.join(os.homedir(), 'Documents');
 const default_settings = {
     width: 800,
     height: 600,
-    get_file_location: "C:\\Users\\kot_6\\Documents",
-    save_file_location: "C:\\Users\\kot_6\\Documents"
+    get_file_location: default_path,
+    save_file_location: default_path,
+    request_get_file_location: false,
+    request_save_file_location: false
 };
 export const settings_store = {
     restoreDefaultSettings: async () => {
@@ -25,4 +30,8 @@ export const settings_store = {
     getSettings: async () => {
         return await storage.get("settings")
     },
+    updateSettings: async (settings) => {
+        await storage.set('settings', settings)
+        return await storage.get("settings")
+    }
 }
