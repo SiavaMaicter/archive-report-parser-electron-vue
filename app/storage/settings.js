@@ -2,12 +2,12 @@ import Store from "electron-store"
 import os from "os"
 import path from 'path'
 const storage = new Store();
-const default_path = path.join(os.homedir(), 'Documents');
+const default_path = os.homedir();
 const default_settings = {
     width: 800,
     height: 600,
-    get_file_location: default_path,
-    save_file_location: default_path,
+    get_file_location: path.join(default_path, 'Documents\\111.txt'),
+    save_file_location: path.join(default_path, 'Documents'),
     request_get_file_location: false,
     request_save_file_location: false
 };
