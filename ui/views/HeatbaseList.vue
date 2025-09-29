@@ -11,7 +11,7 @@
         </thead>
         <tbody>
           <template v-for="(heatbase, key) in heatbases" :key="key">
-            <tr class="" @click="chooseHeatbase(heatbase, key)">
+            <tr class="table-row" @click="chooseHeatbase(heatbase, key)">
               <td scope="row">{{ key }}</td>
               <td>{{ heatbase.name }}</td>
               <td>
@@ -33,25 +33,28 @@
           <label for="serial_num_textbox" class="form-label">Серийный номер</label>
           <input type="text" class="form-control" v-model="heatbase_serial_num" id="serial_num_textbox" />
         </div>
-        <button class="btn btn-primary" @click="
-          !selectedHeatbase
-            ? $store.dispatch('addHeatbase', {
-              name: heatbase_name,
-              serial_num: heatbase_serial_num,
-            })
-            : cancelSelection()
-          ">
-          {{ !selectedHeatbase ? "Добавить" : "Отменить" }}
-        </button>
-        <button class="btn btn-primary" :class="!selectedHeatbase ? 'disabled' : ''" @click="editHeatbase()">
-          Редактировать
-        </button>
-        <button class="btn btn-primary" :class="!selectedHeatbase ? 'disabled' : ''" @click="deleteHeatbase()">
-          Удалить из списка
-        </button>
-        <button class="btn btn-danger" @click="$store.dispatch('RestoreHeatbases')">
-          RESTORE DEFAULT
-        </button>
+        <div class="action-buttons">
+          <button class="btn btn-primary" @click="
+            !selectedHeatbase
+              ? $store.dispatch('addHeatbase', {
+                name: heatbase_name,
+                serial_num: heatbase_serial_num,
+              })
+              : cancelSelection()
+            ">
+            {{ !selectedHeatbase ? "Добавить" : "Отменить" }}
+          </button>
+
+          <button class="btn btn-success" :class="!selectedHeatbase ? 'disabled' : ''" @click="editHeatbase()">
+            Редактировать
+          </button>
+          <button class="btn btn-danger" :class="!selectedHeatbase ? 'disabled' : ''" @click="deleteHeatbase()">
+            Удалить из списка
+          </button>
+          <!-- <button class="btn btn-danger" @click="$store.dispatch('RestoreHeatbases')">
+            RESTORE DEFAULT
+          </button> -->
+        </div>
       </div>
     </div>
   </div>
@@ -104,3 +107,40 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.table-responsive {
+  min-width: 600px;
+  max-width: 800px;
+  padding: 20px;
+  margin: 0 auto;
+  background: #ffffff59;
+  -webkit-box-shadow: 3px 3px 23px -9px rgba(0, 0, 0, 0.86);
+  -moz-box-shadow: 3px 3px 23px -9px rgba(0, 0, 0, 0.86);
+  box-shadow: 3px 3px 23px -9px rgba(0, 0, 0, 0.86);
+}
+
+.table-light {
+  background: #ffffff59;
+  opacity: 0.8;
+  -webkit-box-shadow: 3px 3px 23px -9px rgba(0, 0, 0, 0.86);
+  -moz-box-shadow: 3px 3px 23px -9px rgba(0, 0, 0, 0.86);
+  box-shadow: 3px 3px 23px -9px rgba(0, 0, 0, 0.86);
+}
+
+.table-row:hover {
+  opacity: 0.0;
+}
+
+.table-responsive .btn {
+  border: 1px solid #fff !important;
+  margin-top: 20px;
+  border-radius: 0px Important;
+  margin-right: 20px;
+  display: inline-flex;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+}
+</style>
