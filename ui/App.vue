@@ -177,4 +177,10 @@ a.sidebar-link {
   display: flex;
   flex-direction: row;
 }
+
+body {
+  background: #70e1f5;
+  background: -webkit-linear-gradient(to right, #ffd194, #70e1f5);
+  background: linear-gradient(to right, #ffd194, #70e1f5);
+}
 </style>
