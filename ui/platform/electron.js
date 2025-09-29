@@ -13,9 +13,6 @@ module.exports = () => ({
                 async getAllHeatbases() {
                     return await ipcRenderer.invoke('get-heatbase-list')
                 },
-                async updateHeatbase(heatbase) {
-                    return await ipcRenderer.invoke('update-heatbase', heatbase)
-                },
                 async addHeatbase(heatbase) {
                     return await ipcRenderer.invoke('add-heatbase', heatbase);
                 },
@@ -41,9 +38,6 @@ module.exports = () => ({
                 },
                 async changeCurrentLocation(current_location) {
                     return await ipcRenderer.invoke("change-current-location", current_location);
-                },
-                async updateSettings(settings) {
-                    return await ipcRenderer.send("update-settings", settings)
                 },
                 async applySettings() {
                     await ipcRenderer.send("apply-settings");

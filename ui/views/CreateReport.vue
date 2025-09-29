@@ -1,53 +1,37 @@
 <template>
   <div>
     <div class="btn-group">
-      <button
-        class="btn btn-secondary dropdown-toggle"
-        type="button"
-        id="triggerId"
-        data-bs-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
         {{ selectedHeatbase ? selectedHeatbase.name : "Выберете котельную" }}
       </button>
 
-      <div
-        class="dropdown-menu dropdown-menu-start"
-        aria-labelledby="triggerId"
-      >
+      <div class="dropdown-menu dropdown-menu-start" aria-labelledby="triggerId">
         <template v-for="(heatbase, key) in heatbases" :key="key">
-          <a
-            class="dropdown-item"
-            href="#"
-            @click="selectedHeatbase = heatbase"
-            >{{ heatbase.name }}</a
-          >
+          <a class="dropdown-item" href="#" @click="selectedHeatbase = heatbase">{{ heatbase.name }}</a>
         </template>
       </div>
       <div class="btn-group" role="group" data-bs-toggle="buttons">
-        <label class="btn btn-primary active">
-          <input
-            type="checkbox"
-            class="me-2"
-            autocomplete="off"
-            v-model="chouse_file"
-          />
+        <label class="btn btn-primary active" v-if="settings">
+          <input type="checkbox" class="me-2" autocomplete="off" v-model="settings.request_get_file_location" />
+          Выбрать файл
+        </label>
+      </div>
+      <div class="btn-group" role="group" data-bs-toggle="buttons">
+        <label class="btn btn-primary active" v-if="settings">
+          <input type="checkbox" class="me-2" autocomplete="off" v-model="settings.request_save_file_location" />
           Выбрать файл
         </label>
       </div>
       <div>
-        <button
-          class="btn btn-primary"
-          @click="
-            !selectedHeatbase
-              ? alert('Выберете котельную')
-              : $store.dispatch('createReport', {
-                  name: selectedHeatbase.name,
-                  serial_num: selectedHeatbase.serial_num,
-                })
-          "
-        >
+        <button class="btn btn-primary" @click="
+          !selectedHeatbase
+            ? alert('Выберете котельную')
+            : $store.dispatch('createReport', {
+              name: selectedHeatbase.name,
+              serial_num: selectedHeatbase.serial_num,
+            })
+          ">
           Сформировать отчет
         </button>
       </div>
@@ -93,10 +77,14 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getHeatbases");
+    this.$store.dispatch("getCurrentSettings")
   },
   computed: {
     heatbases() {
       return this.$store.getters.heatbases;
+    },
+    settings() {
+      return this.$store.getters.settings;
     },
     report() {
       return this.$store.getters.report;
