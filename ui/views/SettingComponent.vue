@@ -1,105 +1,73 @@
 <template>
   <div>
-    <div>SETTINGS</div>
-    <div v-if="settings">
-      <label for="dropdown_window_scales">Разрешение экрана</label>
-      <div class="dropdown open" name="dropdown_window_scales"></div>
-      <button
-        class="btn btn-secondary dropdown-toggle"
-        type="button"
-        id="triggerId"
-        data-bs-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        {{
-          screenExt.width
-            ? `${screenExt.width}x${screenExt.height}`
-            : "Выберете разрешение"
-        }}
-      </button>
-      <div class="dropdown-menu" aria-labelledby="triggerId">
-        <button
-          class="dropdown-item"
-          v-for="(ext, key) in screenExtPreset"
-          :key="key"
-          @click="
+    <div class="settings-form" v-if="settings">
+      <div class="form-group">
+        НАСТРОЙКИ
+      </div>
+      <div class="form-group">
+        <label for="dropdown_window_scales" class="form-label">Разрешение экрана</label>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{
+            screenExt.width
+              ? `${screenExt.width}x${screenExt.height}`
+              : "Выберете разрешение"
+          }}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="triggerId">
+          <button class="dropdown-item" v-for="(ext, key) in screenExtPreset" :key="key" @click="
             screenExt = {
               width: ext.width,
               height: ext.height,
             }
-          "
-        >
-          {{ `${ext.width}x${ext.height}` }}
-        </button>
+            ">
+            {{ `${ext.width}x${ext.height}` }}
+          </button>
+        </div>
       </div>
-      <div class="form">
-        <div class="mb-3">
-          <label for="wincor_directory_input" class="form-label"
-            >Стандартное место файла с архивом Wincor</label
-          >
-          <input
-            class="form-control"
-            v-model="get_file_location"
-            type="text"
-            readonly
-            id="wincor_directory_input"
-          />
-          <button
-            class="btn btn-primary"
-            for="wincor_directory_input"
-            @click="change_get_file_location()"
-          >
+      <div class="form-group">
+        <label for="wincor_directory_input" class="form-label">Стандартное место файла с архивом Wincor</label>
+        <div class="form-group-content">
+          <input class="form-control" v-model="get_file_location" type="text" readonly id="wincor_directory_input" />
+          <button class="btn btn-primary" for="wincor_directory_input" @click="change_get_file_location()">
             Выбрать
           </button>
         </div>
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="wincor_directory_checkbox"
-          aria-label="Text for screen reader"
-          v-model="request_get_file_location"
-        />
-        <label for="wincor_directory_checkbox"
-          >Спрашивать дирректорию с нахождением файла Wincor</label
-        >
-        <label for="wincor_directory_input" class="form-label"
-          >Стандартный путь к сохранению отчета</label
-        >
-        <input
-          class="form-control"
-          v-model="save_file_location"
-          type="text"
-          readonly
-          id="report_directory_input"
-        />
-        <button
-          class="btn btn-primary"
-          for="report_directory_input"
-          @click="change_save_file_location()"
-        >
-          Выбрать
-        </button>
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="report_directory_checkbox"
-          aria-label="Text for screen reader"
-          v-model="request_save_file_location"
-        />
-        <label for="report_directory_checkbox"
-          >Спрашивать дирректорию для сохранения файла отчета</label
-        >
       </div>
-      <div class="btn btn-primary" @click="saveChanges()">
+      <div class="form-group">
+        <div class="form-group-content">
+          <input class="form-check-input" type="checkbox" name="wincor_directory_checkbox"
+            aria-label="Text for screen reader" v-model="request_get_file_location" />
+          <label for="wincor_directory_checkbox">Спрашивать дирректорию с нахождением файла Wincor</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="wincor_directory_input" class="form-label">Стандартный путь к сохранению отчета</label>
+        <div class="form-group-content">
+          <input class="form-control" v-model="save_file_location" type="text" readonly id="report_directory_input" />
+          <button class="btn btn-primary" for="report_directory_input" @click="change_save_file_location()">
+            Выбрать
+          </button>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-group-content">
+          <input class="form-check-input" type="checkbox" name="report_directory_checkbox"
+            aria-label="Text for screen reader" v-model="request_save_file_location" />
+          <label for="report_directory_checkbox">Спрашивать дирректорию для сохранения файла отчета</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary">
+          Востановить значения котельных по умолчанию
+        </button>
+      </div>
+      <div @click="$store.dispatch('restoreDefaultSettings')" class="btn btn-primary">
+        Сбросить по умолчанию
+      </div>
+      <div class="btn btn-primary" @click="saveChanges()" style="float:right">
         Сохранить настройки
       </div>
-    </div>
-    <div
-      @click="$store.dispatch('restoreDefaultSettings')"
-      class="btn btn-primary"
-    >
-      RESTORE DEFAULTS
     </div>
   </div>
 </template>
@@ -168,3 +136,50 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.settings-form {
+  min-width: 400px;
+  max-width: 600px;
+  padding: 20px;
+  margin: 0 auto;
+  background: #ffffff59;
+  -webkit-box-shadow: 3px 3px 23px -9px rgba(0, 0, 0, 0.86);
+  -moz-box-shadow: 3px 3px 23px -9px rgba(0, 0, 0, 0.86);
+  box-shadow: 3px 3px 23px -9px rgba(0, 0, 0, 0.86);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  .form-group-content {
+    display: flex;
+    align-items: baseline;
+  }
+}
+
+
+.settings-form input {
+  border: 1px solid #eee;
+  border-radius: 0 !important;
+  padding: 5px 8px;
+  color: #444;
+}
+
+.settings-form button {
+  // color: #555;
+  // background: #ffffffad;
+  border: 1px solid #fff;
+  border-radius: 0px Important;
+}
+
+.settings-form button:hover {
+  // background-color: #fff;
+  opacity: 0.8;
+}
+
+.pull-right {
+  float: right;
+}
+</style>

@@ -26,6 +26,15 @@ const actions = {
         await app.store.settings.applySettings();
         state.settings = await app.store.settings.getCurrentSettings();
         // console.log(state.settings)
+    },
+    async createReport({ commit, dispatch, state }, heatbase) {
+
+        const open_dialog = {
+            request_get_file_location: state.settings.request_get_file_location,
+            request_save_file_location: state.settings.request_save_file_location
+        }
+        state.report = await app.report.createDefaultReport(heatbase, open_dialog);
+        console.log(state.report);
     }
 }
 

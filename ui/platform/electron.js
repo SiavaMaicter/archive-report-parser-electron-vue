@@ -31,7 +31,7 @@ module.exports = () => ({
                     return await ipcRenderer.invoke('get-current-settings')
                 },
                 async updateSettings(settings) {
-                    return await ipcRenderer.invoke('update-settings', settings)
+                    return await ipcRenderer.send('update-settings', settings)
                 },
                 async changeWindowSize(size) {
                     return await ipcRenderer.send('change-window-size', size);
@@ -45,8 +45,8 @@ module.exports = () => ({
             }
         },
         report: {
-            async createDefaultReport(heatbase) {
-                return await ipcRenderer.invoke("parse-default-report", heatbase);
+            async createDefaultReport(heatbase, open_dialog) {
+                return await ipcRenderer.invoke("parse-default-report", heatbase, open_dialog);
             }
         }
     }

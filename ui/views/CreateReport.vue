@@ -122,7 +122,7 @@ export default {
 }
 
 .form button:hover {
-  background: #fff !important;
+  background: #fff ;
 }
 
 .pull-right {

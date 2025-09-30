@@ -120,19 +120,17 @@ export default {
 }
 
 .table-light {
-  background: #ffffff59;
-  opacity: 0.8;
   -webkit-box-shadow: 3px 3px 23px -9px rgba(0, 0, 0, 0.86);
   -moz-box-shadow: 3px 3px 23px -9px rgba(0, 0, 0, 0.86);
   box-shadow: 3px 3px 23px -9px rgba(0, 0, 0, 0.86);
 }
 
 .table-row:hover {
-  opacity: 0.0;
+  opacity: 0.5;
 }
 
 .table-responsive .btn {
-  border: 1px solid #fff !important;
+  border: 1px solid #fff;
   margin-top: 20px;
   border-radius: 0px Important;
   margin-right: 20px;

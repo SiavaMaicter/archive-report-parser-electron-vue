@@ -6,9 +6,10 @@ import { report_keys, headerStyle, descriptionStyle, tableHeaderStyle, tableStyl
 import { settings_store } from '../storage/settings.js';
 
 export class file_manager {
-    constructor(event, heatbase) {
+    constructor(event, heatbase, open_dialog) {
         this.event = event;
         this.heatbase = heatbase;
+        this.open_dialog = open_dialog;
     }
     async init() {
         this.settings = await settings_store.getSettings();
@@ -17,8 +18,7 @@ export class file_manager {
 
 file_manager.prototype.read_file = async function () {
     let file_location;
-    console.log(this.settings.request_get_file_location);
-    if (this.settings.request_get_file_location == true) {
+    if (this.open_dialog.request_get_file_location == true) {
         const window = this.event.sender.getOwnerBrowserWindow();
         const file_obj = await dialog.showOpenDialog(window, {
             defaultPath: this.settings.get_file_location,
@@ -115,7 +115,7 @@ file_manager.prototype.save_file = async function (archive_table) {
     lastRow.eachCell((cell, collNum) => {
         cell.style = descriptionStyle;
     })
-    if (this.settings.request_save_file_location == false) {
+    if (this.open_dialog.request_save_file_location == false) {
         await workbook.xlsx.writeFile(this.settings.save_file_location + `\\${this.heatbase.name}.xlsx`);
     }
     else {

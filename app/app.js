@@ -14,12 +14,13 @@ const createWindow = async () => {
     const win = new BrowserWindow({
         width: settings ? settings.width : 800,
         height: settings ? settings.height : 600,
+        title: "Показания газ",
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
         },
     })
-    win.setIcon(`${__dirname}/../ui/assets/logo.png`);
+    win.setIcon(`${__dirname}/../ui/assets/logo.ico`);
     win.loadFile(`${__dirname}/../dist/index.html`)
     if (isDevMode) {
         win.webContents.openDevTools()
