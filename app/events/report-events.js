@@ -10,8 +10,15 @@ module.exports = () => {
             await file_dialog.init();
             const archive_table = await file_dialog.read_file();
             await file_dialog.save_file(archive_table);
+            return {
+                archive_table: archive_table,
+                status: "success"
+            }
         } catch (err) {
-            throw err;
+            return {
+                status: "failed",
+                message: err.message
+            }
         }
     });
     ipcMain.handle("change-current-location", async (event, current_location) => {

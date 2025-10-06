@@ -6,7 +6,6 @@ const state = {
 }
 const getters = {
     heatbases: (state) => state.heatbases,
-    report: (state) => state.report
 }
 const mutations = {
 

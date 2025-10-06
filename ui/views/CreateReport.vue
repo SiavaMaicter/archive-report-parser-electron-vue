@@ -44,27 +44,35 @@
           Запрашивать путь к сохранению
         </label>
       </div>
-      <button type="reset" class="btn" @click="cancelActions()">Отменить действие</button>
-      <button class="btn" style="float:right" @click="
-        !selectedHeatbase
-          ? alert('Выберете котельную')
-          : $store.dispatch('createReport', {
-            name: selectedHeatbase.name,
-            serial_num: selectedHeatbase.serial_num,
-          })
-        ">Сформировать отчет</button>
+      <button type="reset" class="btn" @click="cancelActions()">Отмена</button>
+      <modal v-if="heatbases" :mod_desc="modal_desctiption" :button_style="{
+        content: 'Создать отчет', style: {
+          color: '#555',
+          background: '#ffffffad', border: '1px solid #fff !important', 'margin-top': '20px', 'border-radius'
+            : '0px Important',
+        }
+      }" @modal-event="createReport()" :message="'some great message'" />
     </div>
   </div>
 </template>
 <script>
+import ModalWindow from '../components/ModalWindow.vue';
 export default {
+  setup() {
+    return;
+  },
   methods: {
-    createReport() {
-      if (!this.chouse_file) {
-        alert("action without file selection");
-      } else {
-        alert("action with file selection");
+    async createReport() {
+      if (!this.selectedHeatbase) {
+        this.modal_desctiption = "Ошибка"
+        this.mod_button_content = "Выберете котельную"
+        return;
       }
+      await this.$store.dispatch('createReport', {
+        name: this.selectedHeatbase.name,
+        serial_num: this.selectedHeatbase.serial_num,
+      })
+      console.log(this.report)
     },
     cancelActions() {
       this.$store.dispatch("getCurrentSettings")
@@ -73,6 +81,8 @@ export default {
   },
   data() {
     return {
+      modal_desctiption: null,
+      mod_button_content: null,
       selectedHeatbase: null,
       chouse_file: false,
     };
@@ -92,6 +102,9 @@ export default {
       return this.$store.getters.report;
     },
   },
+  components: {
+    modal: ModalWindow
+  }
 };
 </script>
 <style lang="scss">
@@ -114,6 +127,7 @@ export default {
 }
 
 .form button {
+  min-width: 125px;
   color: #555;
   background: #ffffffad;
   border: 1px solid #fff !important;
@@ -122,7 +136,8 @@ export default {
 }
 
 .form button:hover {
-  background: #fff ;
+  // background: #fff ;
+  opacity: 0.8;
 }
 
 .pull-right {

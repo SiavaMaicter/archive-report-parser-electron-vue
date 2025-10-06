@@ -124,8 +124,8 @@ file_manager.prototype.save_file = async function (archive_table) {
             defaultPath: this.settings.get_file_location,
             properties: ['openDirectory', 'showHiddenFiles',]
         })
-        let file_location = file_obj.filePaths[0] + `\\${this.heatbase.name}.xlsx`
-        await workbook.xlsx.writeFile(file_location + `\\${this.heatbase.name}.xlsx`);
+        // let file_location = file_obj.filePaths[0] + `\\${this.heatbase.name}.xlsx`
+        await workbook.xlsx.writeFile(file_obj.filePaths[0] + `\\${this.heatbase.name}.xlsx`);
     }
     console.log(`Excel file created: ${this.heatbase.name}.xlsx`);
 }

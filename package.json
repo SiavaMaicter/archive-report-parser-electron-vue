@@ -1,14 +1,17 @@
 {
   "name": "gas_otchet",
-  "version": "",
+  "version": "1.0.0",
+  "author": "TTE",
+  "description": "",
   "private": true,
+  "main": "app/app.js",
   "scripts": {
     "app": "electron app/app.js",
     "app:dev": "npm run build && npm run app -- --dev-mode",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "electron:build": "vue-cli-service electron:build",
+    "electron:build": "electron-builder",
     "electron:serve": "vue-cli-service electron:serve"
   },
   "dependencies": {
@@ -16,7 +19,6 @@
     "@vue/devtools": "^8.0.2",
     "bootstrap": "^5.3.8",
     "dotenv": "^17.2.2",
-    "electron": "^38.0.0",
     "electron-json-storage": "^4.6.0",
     "electron-store": "^10.1.0",
     "exceljs": "^4.4.0",
@@ -43,5 +45,10 @@
     "not ie 11"
   ],
   "_id": "@",
-  "readme": "ERROR: No README data found!"
+  "readme": "ERROR: No README data found!",
+  "build": {
+    "directories": {
+      "output": "dist_electron"
+    }
+  }
 }
