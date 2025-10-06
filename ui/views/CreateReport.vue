@@ -1,25 +1,5 @@
 <template>
-  <div v-if="report">
-    <div class="table-responsive">
-      <table class="table table-primary">
-        <thead>
-          <tr>
-            <th scope="col" v-for="(value, key) in report[0]" :key="key">
-              {{ key }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="" v-for="(row, key) in report" :key="key">
-            <td scope="row" v-for="(value, key) in row" :key="key">
-              {{ value }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="container">
+  <div class="container" :class="{ 'flex-inline-container': (report && settings.show_response) }">
     <div class="form">
       <div class="form-group">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
@@ -52,6 +32,26 @@
             : '0px Important',
         }
       }" @modal-event="createReport()" :message="'some great message'" />
+    </div>
+    <div v-if="report && settings.show_response" class="table-response">
+      <div class="table-responsive">
+        <table class="table table-primary">
+          <thead>
+            <tr>
+              <th scope="col" v-for="(value, key) in report.archive_table[0]" :key="key">
+                {{ key }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="" v-for="(row, key) in report.archive_table" :key="key">
+              <td scope="row" v-for="(value, key) in row" :key="key">
+                {{ value }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -108,6 +108,10 @@ export default {
 };
 </script>
 <style lang="scss">
+.flex-inline-container {
+  display: inline-flex;
+}
+
 .form {
   min-width: 300px;
   max-width: 400px;
@@ -142,5 +146,29 @@ export default {
 
 .pull-right {
   float: right;
+}
+
+.table-response .table-responsive {
+  max-height: 500px;
+  min-width: 400px;
+  overflow-y: scroll;
+
+  .table {
+    border: 1px solid #fff !important;
+
+    th {
+      color: #000000;
+      background: #ffffffad;
+    }
+
+    td {
+      color: #000000;
+      background: #ffffffad;
+    }
+
+    tr td:hover {
+      background: #dad8d8ad;
+    }
+  }
 }
 </style>
