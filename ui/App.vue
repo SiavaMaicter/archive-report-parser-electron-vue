@@ -49,6 +49,10 @@ export default {
 };
 </script>
 <style lang="scss">
+// body {
+//   overflow-x: auto;
+// }
+
 ::after,
 ::before {
   box-sizing: border-box;

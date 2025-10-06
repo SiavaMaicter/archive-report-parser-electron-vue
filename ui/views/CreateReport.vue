@@ -75,6 +75,7 @@ export default {
       console.log(this.report)
     },
     cancelActions() {
+      this.$store.commit("unsetReport", null)
       this.$store.dispatch("getCurrentSettings")
       this.selectedHeatbase = null
     }
@@ -148,13 +149,49 @@ export default {
   float: right;
 }
 
-.table-response .table-responsive {
+.table-response::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.table-response::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 8px;
+}
+
+.table-response::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+
+.table-response::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.table-response {
   max-height: 500px;
-  min-width: 400px;
+  width: 100%;
+  padding-right: 1rem;
   overflow-y: scroll;
 
+  ::-webkit-scrollbar-track {
+    background: #555;
+    opacity: 0.8;
+  }
+
+  .table-responsive {
+    overflow-x: hidden;
+  }
+
   .table {
+    width: max-content;
     border: 1px solid #fff !important;
+    overflow-x: hidden;
+
+    // ::-webkit-scrollbar-track {
+    //   background: #555;
+    //   opacity: 0.8;
+    // }
 
     th {
       color: #000000;

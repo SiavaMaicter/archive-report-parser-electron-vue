@@ -9,6 +9,7 @@ const getters = {
     report: (state) => state.report
 }
 const mutations = {
+    unsetReport: (state, report) => state.report = report
 }
 const actions = {
     async restoreDefaultSettings({ commit, dispatch, state }) {
