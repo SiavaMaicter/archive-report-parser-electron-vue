@@ -9,7 +9,8 @@ const default_settings = {
     get_file_location: path.join(default_path, 'Documents\\111.txt'),
     save_file_location: path.join(default_path, 'Documents'),
     request_get_file_location: false,
-    request_save_file_location: false
+    request_save_file_location: false,
+    show_response: true
 };
 export const settings_store = {
     restoreDefaultSettings: async () => {

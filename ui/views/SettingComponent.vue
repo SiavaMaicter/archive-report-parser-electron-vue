@@ -58,6 +58,13 @@
         </div>
       </div>
       <div class="form-group">
+        <div class="form-group-content">
+          <input class="form-check-input" type="checkbox" name="report_directory_checkbox"
+            aria-label="Text for screen reader" v-model="show_response" />
+          <label for="report_directory_checkbox">Отображать результат</label>
+        </div>
+      </div>
+      <div class="form-group">
         <button class="btn btn-primary">
           Востановить значения котельных по умолчанию
         </button>
@@ -75,6 +82,7 @@
 export default {
   data() {
     return {
+      show_response: null,
       screenExt: {},
       screenExtPreset: {
         _4x3: { width: 800, height: 600 },
@@ -97,6 +105,7 @@ export default {
         request_get_file_location: this.request_get_file_location,
         save_file_location: this.save_file_location,
         request_save_file_location: this.request_save_file_location,
+        show_response: this.show_response,
       });
     },
     async change_get_file_location() {
@@ -128,6 +137,7 @@ export default {
     this.request_get_file_location = this.settings.request_get_file_location;
     this.save_file_location = this.settings.save_file_location;
     this.request_save_file_location = this.settings.request_save_file_location;
+    this.show_response = this.settings.show_response;
   },
   computed: {
     settings() {

@@ -18,6 +18,7 @@ module.exports = () => {
         } else {
             window.setSize(settings.width, settings.height);
         }
+        return settings;
     });
     ipcMain.handle("get-current-settings", async () => {
         return await electron_store.settings_store.getSettings();
