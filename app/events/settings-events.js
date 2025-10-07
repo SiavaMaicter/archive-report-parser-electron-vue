@@ -1,4 +1,4 @@
-const { ipcMain, app, BrowserWindow } = require('electron')
+const { ipcMain, BrowserWindow } = require('electron')
 const { electron_store } = require('../storage/index.js')
 module.exports = () => {
     ipcMain.on("change-window-size", async (event, window_size) => {

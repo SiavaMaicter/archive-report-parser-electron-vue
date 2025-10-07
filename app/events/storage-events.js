@@ -1,4 +1,4 @@
-const { ipcMain, app } = require('electron')
+const { ipcMain } = require('electron')
 const { electron_store } = require('../storage/index.js')
 
 module.exports = () => {

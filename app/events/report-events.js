@@ -1,7 +1,5 @@
-const { ipcMain, app, dialog } = require('electron')
-// const { file_manager } = require('../file_manager/index.js')
+const { ipcMain, dialog } = require('electron')
 const { file_manager } = require("../file_manager/file-manager.js")
-const { electron_store } = require('../storage/index.js')
 
 module.exports = () => {
     ipcMain.handle("parse-default-report", async (event, heatbase, open_dialog) => {

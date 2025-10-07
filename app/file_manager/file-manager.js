@@ -1,5 +1,4 @@
-import { table } from 'console';
-import { app, dialog } from 'electron'
+import { dialog } from 'electron'
 import fs from 'fs'
 import ExcelJS from 'exceljs'
 import { report_keys, headerStyle, descriptionStyle, tableHeaderStyle, tableStyle } from './report-utils.js';
@@ -121,7 +120,7 @@ file_manager.prototype.save_file = async function (archive_table) {
     else {
         const window = this.event.sender.getOwnerBrowserWindow();
         const file_obj = await dialog.showOpenDialog(window, {
-            defaultPath: this.settings.get_file_location,
+            defaultPath: this.settings.save_file_location,
             properties: ['openDirectory', 'showHiddenFiles',]
         })
         // let file_location = file_obj.filePaths[0] + `\\${this.heatbase.name}.xlsx`

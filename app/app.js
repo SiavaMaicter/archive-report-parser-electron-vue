@@ -1,9 +1,8 @@
 require('dotenv').config()
-const { app, BrowserWindow, session } = require('electron/main')
+const { app, BrowserWindow } = require('electron/main')
 const { init: initEvents } = require("./events")
 const { settings_store } = require("./storage/settings");
 const { heatbase_store } = require("./storage/heatbases");
-// const { ipcRenderer } = require('electron');
 const isDevMode = app.commandLine.hasSwitch('dev-mode');
 const createWindow = async () => {
     const settings = await settings_store.getSettings('settings');
