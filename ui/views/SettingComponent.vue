@@ -65,7 +65,7 @@
         </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" @click="$store.dispatch('RestoreHeatbases')">
           Востановить значения котельных по умолчанию
         </button>
       </div>
@@ -85,7 +85,7 @@ export default {
       show_response: null,
       screenExt: {},
       screenExtPreset: {
-        _4x3: { width: 800, height: 600 },
+        // _4x3: { width: 800, height: 600 },
         _16x9: { width: 1024, height: 768 },
         HD: { width: 1280, height: 720 },
         Full_HD: { width: 1920, height: 1080 },

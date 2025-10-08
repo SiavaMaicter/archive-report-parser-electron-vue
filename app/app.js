@@ -14,6 +14,7 @@ const createWindow = async () => {
         width: settings ? settings.width : 800,
         height: settings ? settings.height : 600,
         title: "Показания газ",
+        icon: `${__dirname}/../public/gasIcon.ico`,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -23,6 +24,8 @@ const createWindow = async () => {
     win.loadFile(`${__dirname}/../dist/index.html`)
     if (isDevMode) {
         win.webContents.openDevTools()
+    } else {
+        win.removeMenu()
     }
 }
 

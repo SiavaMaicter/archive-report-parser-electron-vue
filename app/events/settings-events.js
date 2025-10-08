@@ -10,7 +10,7 @@ module.exports = () => {
             window.setSize(settings.width, settings.height);
         }
     })
-    ipcMain.on("restore-default-settings", async (event) => {
+    ipcMain.handle("restore-default-settings", async (event) => {
         let settings = await electron_store.settings_store.restoreDefaultSettings();
         const window = BrowserWindow.fromWebContents(event.sender);
         if (!window) {
@@ -18,6 +18,7 @@ module.exports = () => {
         } else {
             window.setSize(settings.width, settings.height);
         }
+        console.log(settings)
         return settings;
     });
     ipcMain.handle("get-current-settings", async () => {

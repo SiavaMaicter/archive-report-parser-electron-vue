@@ -25,16 +25,16 @@
         </label>
       </div>
       <button type="reset" class="btn" @click="cancelActions()">Отмена</button>
-      <modal v-if="heatbases" :mod_desc="modal_desctiption" :button_style="{
+      <modal v-if="heatbases" :mod_label="modal_label" :button_style="{
         content: 'Создать отчет', style: {
           color: '#555',
           background: '#ffffffad', border: '1px solid #fff !important', 'margin-top': '20px', 'border-radius'
             : '0px Important',
         }
-      }" @modal-event="createReport()" :message="'some great message'" />
+      }" @modal-event="createReport()" :modal_desctiption="modal_desctiption" />
     </div>
-    <div v-if="report && settings.show_response" class="table-response">
-      <div class="table-responsive">
+    <template v-if="report">
+      <div class="table-responsive" v-if="report.archive_table && settings.show_response">
         <table class="table table-primary">
           <thead>
             <tr>
@@ -52,7 +52,7 @@
           </tbody>
         </table>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 <script>
@@ -64,14 +64,16 @@ export default {
   methods: {
     async createReport() {
       if (!this.selectedHeatbase) {
-        this.modal_desctiption = "Ошибка"
-        this.mod_button_content = "Выберете котельную"
+        this.modal_label = "Ошибка"
+        this.modal_desctiption = "Выберете котельную"
         return;
       }
       await this.$store.dispatch('createReport', {
         name: this.selectedHeatbase.name,
         serial_num: this.selectedHeatbase.serial_num,
       })
+      this.modal_label = "Отчет сохранен";
+      this.modal_desctiption = this.report.status.message;
       console.log(this.report)
     },
     cancelActions() {
@@ -83,6 +85,7 @@ export default {
   data() {
     return {
       modal_desctiption: null,
+      modal_label: null,
       mod_button_content: null,
       selectedHeatbase: null,
       chouse_file: false,
@@ -111,6 +114,7 @@ export default {
 <style lang="scss">
 .flex-inline-container {
   display: inline-flex;
+  gap: 20px;
 }
 
 .form {
@@ -149,49 +153,40 @@ export default {
   float: right;
 }
 
-.table-response::-webkit-scrollbar {
+// .table-response {}
+
+.table-responsive::-webkit-scrollbar {
   height: 8px;
   width: 8px;
 }
 
-.table-response::-webkit-scrollbar-track {
+.table-responsive::-webkit-scrollbar-track {
   background: #f0f0f0;
   border-radius: 8px;
 }
 
-.table-response::-webkit-scrollbar-thumb {
+.table-responsive::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 8px;
 }
 
-.table-response::-webkit-scrollbar-thumb:hover {
+.table-responsive::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
 
-.table-response {
-  max-height: 500px;
-  width: 100%;
-  padding-right: 1rem;
-  overflow-y: scroll;
-
-  ::-webkit-scrollbar-track {
-    background: #555;
-    opacity: 0.8;
-  }
-
-  .table-responsive {
-    overflow-x: hidden;
-  }
+.table-responsive {
+  max-width: 1000px;
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 4px;
 
   .table {
-    width: max-content;
+    // max-width: 100%;
     border: 1px solid #fff !important;
-    overflow-x: hidden;
-
-    // ::-webkit-scrollbar-track {
-    //   background: #555;
-    //   opacity: 0.8;
-    // }
+    border-collapse: collapse;
+    width: max-content;
+    min-width: 100%;
 
     th {
       color: #000000;

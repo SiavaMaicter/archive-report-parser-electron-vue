@@ -7,15 +7,20 @@ module.exports = () => {
         try {
             await file_dialog.init();
             const archive_table = await file_dialog.read_file();
-            await file_dialog.save_file(archive_table);
+            const file_location = await file_dialog.save_file(archive_table);
             return {
                 archive_table: archive_table,
-                status: "success"
+                status: {
+                    message: `Файл сохранен в папке: ${file_location}`,
+                    state: 'success'
+                }
             }
         } catch (err) {
             return {
-                status: "failed",
-                message: err.message
+                status: {
+                    message: err.message,
+                    state: "error"
+                }
             }
         }
     });

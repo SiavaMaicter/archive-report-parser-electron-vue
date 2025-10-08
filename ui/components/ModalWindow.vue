@@ -9,15 +9,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal_demo_label">{{ mod_desc }}</h5>
+                    <h5 class="modal-title" id="modal_demo_label">{{ mod_label }}</h5>
                     <button type="button" class="btn-close" aria-label="Close" @click="closeModal"></button>
                 </div>
                 <div class="modal-body">
-                    {{ message }}
+                    {{ modal_desctiption }}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" @click="closeModal">Закрыть</button>
                 </div>
             </div>
         </div>
@@ -34,8 +33,8 @@ export default {
             content: String,
             style: Object | null
         },
-        mod_desc: String | null,
-        message: String,
+        mod_label: String | null,
+        modal_desctiption: String | null,
     },
     data() {
         return {

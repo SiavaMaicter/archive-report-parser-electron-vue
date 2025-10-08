@@ -14,6 +14,7 @@ const mutations = {
 const actions = {
     async restoreDefaultSettings({ commit, dispatch, state }) {
         state.settings = await app.store.settings.restoreDefaults();
+        console.log(state.settings)
     },
     async changeWindowSize({ commit, dispatch, state }, size) {
         await app.store.settings.changeWindowSize(size);

@@ -1,8 +1,10 @@
 {
-  "name": "gas_otchet",
+  "name": "fox_2.0",
+  "productName": "Лисичка 2.0",
   "version": "1.0.0",
   "author": "TTE",
   "description": "",
+  "icon": "public/gasIcon.ico",
   "private": true,
   "main": "app/app.js",
   "scripts": {
@@ -48,7 +50,11 @@
   "readme": "ERROR: No README data found!",
   "build": {
     "directories": {
-      "output": "dist_electron"
+      "output": "dist_electron",
+      "buildResources": "public"
+    },
+    "win": {
+      "icon": "public/gasIcon.ico"
     }
   }
 }

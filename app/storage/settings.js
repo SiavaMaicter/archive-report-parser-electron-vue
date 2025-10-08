@@ -4,8 +4,8 @@ import path from 'path'
 const storage = new Store();
 const default_path = os.homedir();
 const default_settings = {
-    width: 800,
-    height: 600,
+    width: 1024,
+    height: 768,
     get_file_location: path.join(default_path, 'Documents\\111.txt'),
     save_file_location: path.join(default_path, 'Documents'),
     request_get_file_location: false,

@@ -31,7 +31,7 @@ file_manager.prototype.read_file = async function () {
     if (fs.existsSync(file_location)) {
         default_file_content = await fs.readFileSync(file_location, 'utf-8');
     } else {
-        throw new Error("FILE NOT EXIST")
+        throw new Error("Повторите попытку снова")
     }
     const lines = default_file_content.split("\n");
     const tableData = [];
@@ -74,6 +74,8 @@ file_manager.prototype.save_file = async function (archive_table) {
     sheet.getCell('C3').style = descriptionStyle;
     sheet.getCell('C4').style = descriptionStyle;
     sheet.getCell('C5').style = descriptionStyle;
+    sheet.getColumn('B').width = 25;
+    sheet.getColumn('C').width = 25;
     let headerKeys = Object.keys(archive_table[0]);
     headerKeys.unshift("№ ")
     sheet.addRow(headerKeys)
@@ -116,6 +118,7 @@ file_manager.prototype.save_file = async function (archive_table) {
     })
     if (this.open_dialog.request_save_file_location == false) {
         await workbook.xlsx.writeFile(this.settings.save_file_location + `\\${this.heatbase.name}.xlsx`);
+        return this.settings.save_file_location;
     }
     else {
         const window = this.event.sender.getOwnerBrowserWindow();
@@ -123,8 +126,11 @@ file_manager.prototype.save_file = async function (archive_table) {
             defaultPath: this.settings.save_file_location,
             properties: ['openDirectory', 'showHiddenFiles',]
         })
-        // let file_location = file_obj.filePaths[0] + `\\${this.heatbase.name}.xlsx`
-        await workbook.xlsx.writeFile(file_obj.filePaths[0] + `\\${this.heatbase.name}.xlsx`);
+        try {
+            await workbook.xlsx.writeFile(file_obj.filePaths[0] + `\\${this.heatbase.name}.xlsx`);
+        } catch (err) {
+            throw new Error('Повторите попытку снова')
+        }
+        return file_obj.filePaths[0];
     }
-    console.log(`Excel file created: ${this.heatbase.name}.xlsx`);
 }
